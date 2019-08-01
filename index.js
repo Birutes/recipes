@@ -1,1 +1,7 @@
-console.log("sdsd");
+import path from "path";
+
+const log = (string) => {
+    console.log(string);
+}
+
+log("hellof");
