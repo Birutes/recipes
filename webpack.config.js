@@ -2,6 +2,8 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
+require('dotenv').config();
+
 module.exports = {
     context: path.join(__dirname, 'src'),
     entry: './index.js',
@@ -9,12 +11,19 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: "./bundle.js"
     },
+    node: {
+        fs: "empty"
+     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            {
+                test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+                loader: 'file-loader'
             }
         ]
     },
@@ -22,6 +31,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template:"./index.html",
             inject:"body"
+        }),
+        new webpack.DefinePlugin({
+            API_URL: JSON.stringify(process.env.API_URL)
         })
     ]
 }
