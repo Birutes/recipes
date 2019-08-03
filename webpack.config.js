@@ -6,7 +6,7 @@ require('dotenv').config();
 
 module.exports = {
     context: path.join(__dirname, 'src'),
-    entry: './index.js',
+    entry: ['whatwg-fetch', './index.js'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "./bundle.js"
@@ -20,6 +20,10 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
+            },
+            {
+                test: /\.css/,
+                loader: ['style-loader', 'css-loader', 'postcss-loader']
             },
             {
                 test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
